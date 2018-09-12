@@ -1,4 +1,5 @@
 const database = require('../config/database');
+const objectID = require('mongodb').ObjectID;
 
 module.exports.inserir = (dados) => {
   return new Promise((resolve, reject) => {
@@ -28,6 +29,27 @@ module.exports.listar = () => {
       const collection = response.db.collection('postagens');
 
       collection.find().toArray((err, result) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(result);
+        }
+      });
+
+      console.log('Fechando conexão');
+      response.client.close();
+    });
+
+  });
+};
+
+module.exports.consultarPorId = (id) => {
+  return new Promise((resolve, reject) => {
+
+    database(response => {
+      const collection = response.db.collection('postagens');
+
+      collection.findOne({_id: objectID(id)}, (err, result) => {
         if (err) {
           reject(err);
         } else {

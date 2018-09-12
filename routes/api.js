@@ -17,6 +17,17 @@ router.get('/', function(req, res) {
 
 });
 
+router.get('/:id', function(req, res) {
+  const id = req.params.id;
+
+  postagem.consultarPorId(id).then(dados => {
+    res.json(dados);
+  }).catch(erro => {
+    res.json(erro);
+  });
+
+});
+
 router.post('/', (req, res) => {
 
   const dados = req.body;
