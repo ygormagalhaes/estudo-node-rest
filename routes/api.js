@@ -28,6 +28,18 @@ router.get('/:id', function(req, res) {
 
 });
 
+router.put('/:id', function(req, res) {
+  const id = req.params.id;
+  const dados = req.body;
+
+  postagem.atualizar(id, dados).then(dados => {
+    res.json(dados);
+  }).catch(erro => {
+    res.json(erro);
+  });
+
+});
+
 router.post('/', (req, res) => {
 
   const dados = req.body;

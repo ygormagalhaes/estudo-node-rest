@@ -63,3 +63,27 @@ module.exports.consultarPorId = (id) => {
 
   });
 };
+
+module.exports.atualizar = (id, dados) => {
+  return new Promise((resolve, reject) => {
+
+    database(response => {
+      const collection = response.db.collection('postagens');
+      
+      const params = [];
+      params.push({_id: objectID(id)});
+      params.push({$set: {usuario: dados.usuario}});
+      params.push({});
+
+      collection.update(...params, (err, result) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(result);
+        }
+      });
+
+    });
+
+  });
+};
