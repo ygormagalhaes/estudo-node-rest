@@ -8,9 +8,9 @@ module.exports.inserir = (dados) => {
 
       collection.insert(dados, (err, records) => {
         if (err) {
-          reject();
+          reject(err);
         } else {
-          resolve();
+          resolve(records);
         }
       });
 
@@ -19,4 +19,25 @@ module.exports.inserir = (dados) => {
     });
 
   });
-}
+};
+
+module.exports.listar = () => {
+  return new Promise((resolve, reject) => {
+
+    database(response => {
+      const collection = response.db.collection('postagens');
+
+      collection.find().toArray((err, result) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(result);
+        }
+      });
+
+      console.log('Fechando conexão');
+      response.client.close();
+    });
+
+  });
+};

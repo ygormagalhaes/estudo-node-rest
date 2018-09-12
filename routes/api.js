@@ -5,10 +5,16 @@ const postagem = require('../models/postagem');
 const STATUS = {
   sucesso: 'Postagem inserida com sucesso.',
   falha: 'Ocorreu um erro na inserção da postagem.'
-}
+};
 
 router.get('/', function(req, res) {
-  res.send({msg: 'Hello world from api!'});
+  
+  postagem.listar().then(dados => {
+    res.json(dados);
+  }).catch(erro => {
+    res.json(erro);
+  });
+
 });
 
 router.post('/', (req, res) => {
