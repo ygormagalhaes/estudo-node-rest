@@ -83,6 +83,29 @@ module.exports.atualizar = (id, dados) => {
         }
       });
 
+      console.log('Fechando conexão');
+      response.client.close();
+    });
+
+  });
+};
+
+module.exports.remover = (id) => {
+  return new Promise((resolve, reject) => {
+
+    database(response => {
+      const collection = response.db.collection('postagens');
+
+      collection.remove({_id: objectID(id)}, (err, result) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(result);
+        }
+      });
+
+      console.log('Fechando conexão');
+      response.client.close();
     });
 
   });

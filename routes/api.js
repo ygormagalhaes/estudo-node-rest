@@ -52,4 +52,15 @@ router.post('/', (req, res) => {
 
 });
 
+router.delete('/:id', function(req, res) {
+  const id = req.params.id;
+
+  postagem.remover(id).then(dados => {
+    res.json(dados);
+  }).catch(erro => {
+    res.json(erro);
+  });
+
+});
+
 module.exports = router;
